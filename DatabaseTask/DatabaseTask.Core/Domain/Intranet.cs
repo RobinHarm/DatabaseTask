@@ -8,15 +8,14 @@ using System.Threading.Tasks;
 
 namespace DatabaseTask.Core.Domain
 {
-    public class SHIFT
+    public class Intranet
     {
-        [Key]
         public int Id { get; set; }
-        public int start_time { get; set; }
-        public int finish_time { get; set; }
-        public DateTime date { get; set; }
+        public int? Users { get; set; }
+        public bool Status { get; set; }
+        [MaxLength(200)]
+        public string Comment { get; set; } = string.Empty;
 
-        public ICollection<GUARDS> Guards { get; set; } = new List<GUARDS>();
 
     }
 }
