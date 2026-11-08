@@ -17,506 +17,395 @@ namespace DatabaseTask.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.12")
+                .HasAnnotation("ProductVersion", "10.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DatabaseTask.Core.Domain.BLOCK", b =>
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Koolitaja", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int>("PRISON_Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("name")
+                    b.Property<string>("KoolitajaEPost")
                         .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
 
-                    b.Property<int>("number")
-                        .HasColumnType("int");
-
-                    b.Property<int>("security_level")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("PRISON_Id");
-
-                    b.ToTable("BLOCK");
-                });
-
-            modelBuilder.Entity("DatabaseTask.Core.Domain.BUILDING", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int>("PRISON_Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("PRISON_Id");
-
-                    b.ToTable("BUILDING");
-                });
-
-            modelBuilder.Entity("DatabaseTask.Core.Domain.CHAMBER", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int?>("BLOCKid")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CHAMBERid")
-                        .HasColumnType("int");
-
-                    b.Property<int>("floor")
-                        .HasColumnType("int");
-
-                    b.Property<int>("maximum_capacity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("number")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("BLOCKid");
-
-                    b.HasIndex("CHAMBERid");
-
-                    b.ToTable("CHAMBER");
-                });
-
-            modelBuilder.Entity("DatabaseTask.Core.Domain.CRIME", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<int>("Difficulty_level")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PRISONER_Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("PRISONER_Id");
-
-                    b.ToTable("CRIME");
-                });
-
-            modelBuilder.Entity("DatabaseTask.Core.Domain.GUARDS", b =>
-                {
-                    b.Property<int>("GUARDS_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GUARDS_Id"));
-
-                    b.Property<string>("First_name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Last_name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("Prison_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Worker_number")
-                        .HasColumnType("int");
-
-                    b.Property<string>("job")
-                        .IsRequired()
-                        .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
-
-                    b.HasKey("GUARDS_Id");
-
-                    b.HasIndex("Prison_Id");
-
-                    b.ToTable("GUARDS");
-                });
-
-            modelBuilder.Entity("DatabaseTask.Core.Domain.PRISON", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("Maximum_capacity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("PRISON");
-                });
-
-            modelBuilder.Entity("DatabaseTask.Core.Domain.PRISONERS", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int>("CHAMBER_Id")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DOB")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("First_Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Last_name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int?>("VISITORSid")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VISIT_Id")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("arrival_date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("personal_number")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("prisoner_status")
-                        .HasColumnType("bit");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("CHAMBER_Id");
-
-                    b.HasIndex("VISITORSid");
-
-                    b.HasIndex("VISIT_Id");
-
-                    b.ToTable("PRISONERS");
-                });
-
-            modelBuilder.Entity("DatabaseTask.Core.Domain.PUNISHMENT", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int>("PRISONERS_Id")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("end_date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("punishment_Type")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.Property<DateTime>("start_date")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("PRISONERS_Id");
-
-                    b.ToTable("PUNISHMENT");
-                });
-
-            modelBuilder.Entity("DatabaseTask.Core.Domain.SHIFT", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("finish_time")
-                        .HasColumnType("int");
-
-                    b.Property<int>("start_time")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SHIFT");
-                });
-
-            modelBuilder.Entity("DatabaseTask.Core.Domain.VISIT", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<DateOnly>("DATE")
-                        .HasColumnType("date");
-
-                    b.Property<int>("finish_time")
-                        .HasColumnType("int");
-
-                    b.Property<int>("start_time")
-                        .HasColumnType("int");
-
-                    b.Property<string>("visiting_status")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("VISIT");
-                });
-
-            modelBuilder.Entity("DatabaseTask.Core.Domain.VISITORS", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<int>("Telephone_number")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VISIT_Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("personal_number")
-                        .HasColumnType("int");
-
-                    b.Property<string>("relation_to_the_prisoner")
+                    b.Property<string>("KoolitajaEesnimi")
                         .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
+                    b.Property<string>("KoolitajaPerekonnanimi")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("KoolitajaTelefon")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Spetsialiseerumine")
+                        .IsRequired()
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
+
+                    b.Property<int>("TasuTunniEest")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("TööleAsumiseKuupäev")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Koolitaja");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Koolitus", b =>
+                {
+                    b.Property<Guid>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("AlgusKuupäev")
+                        .HasColumnType("datetime2");
+
+                    b.Property<float>("Hind")
+                        .HasColumnType("real");
+
+                    b.Property<Guid?>("KoolitajaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("KoolituseKirjeldus")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("KoolituseNimi")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("KoolituseStaatus")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LõppKuupäev")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MahtTundides")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("RegistreerimineId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RuumId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ÕppijaId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("id");
 
-                    b.HasIndex("VISIT_Id");
+                    b.HasIndex("KoolitajaId")
+                        .IsUnique()
+                        .HasFilter("[KoolitajaId] IS NOT NULL");
 
-                    b.ToTable("VISITORS");
+                    b.HasIndex("RegistreerimineId")
+                        .IsUnique()
+                        .HasFilter("[RegistreerimineId] IS NOT NULL");
+
+                    b.HasIndex("RuumId");
+
+                    b.ToTable("Koolitus");
                 });
 
-            modelBuilder.Entity("GUARDSSHIFT", b =>
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Makse", b =>
                 {
-                    b.Property<int>("GUARDS_Id")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ArveNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("ShiftsId")
+                    b.Property<DateTime>("MakseKuupäev")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("MakseStaatus")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MakseSumma")
                         .HasColumnType("int");
 
-                    b.HasKey("GUARDS_Id", "ShiftsId");
+                    b.Property<DateTime>("MakseTähtaeg")
+                        .HasColumnType("datetime2");
 
-                    b.HasIndex("ShiftsId");
+                    b.Property<string>("MakseViis")
+                        .IsRequired()
+                        .HasMaxLength(35)
+                        .HasColumnType("nvarchar(35)");
 
-                    b.ToTable("GUARDSSHIFT");
+                    b.Property<Guid>("RegistreerimineId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Viivis")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RegistreerimineId");
+
+                    b.ToTable("Makse");
                 });
 
-            modelBuilder.Entity("DatabaseTask.Core.Domain.BLOCK", b =>
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Registreerimine", b =>
                 {
-                    b.HasOne("DatabaseTask.Core.Domain.PRISON", "PRISON")
-                        .WithMany("Blocks")
-                        .HasForeignKey("PRISON_Id")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("MakseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("RegistreerimiseKuupäev")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("RegistreerimiseStaatus")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RegistreerimiseTöötaja")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("RegistreerimiseViis")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Registreerimine");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Ruum", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Hoone")
+                        .IsRequired()
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
+
+                    b.Property<int>("KohtadeArv")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("KoolitusId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Korrus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RuumiNimi")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("RuumiTüüp")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ruum");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Õppija", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("EPost")
+                        .IsRequired()
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
+
+                    b.Property<string>("Eesnimi")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("Hinne")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Isikukood")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Linn")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("LäbitudTunnid")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LõpetamiseKuupäev")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Märkused")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Perekonnanimi")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("Postiindeks")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PuudumisteArv")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("RegistreerimineId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Sünnikuupäev")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TagasisideHinne")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TagasisideKommentaar")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("Tase")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Telefon")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("TunnistusVäljastatud")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Tänav")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Valdkond")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RegistreerimineId")
+                        .IsUnique()
+                        .HasFilter("[RegistreerimineId] IS NOT NULL");
+
+                    b.ToTable("Õppija");
+                });
+
+            modelBuilder.Entity("KoolitusÕppija", b =>
+                {
+                    b.Property<Guid>("Koolitusedid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ÕppijadId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Koolitusedid", "ÕppijadId");
+
+                    b.HasIndex("ÕppijadId");
+
+                    b.ToTable("KoolitusÕppija");
+                });
+
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Koolitus", b =>
+                {
+                    b.HasOne("DatabaseTask.Core.Domain.Koolitaja", "Koolitaja")
+                        .WithOne("Koolitus")
+                        .HasForeignKey("DatabaseTask.Core.Domain.Koolitus", "KoolitajaId");
+
+                    b.HasOne("DatabaseTask.Core.Domain.Registreerimine", "Registreerimine")
+                        .WithOne("Koolitus")
+                        .HasForeignKey("DatabaseTask.Core.Domain.Koolitus", "RegistreerimineId");
+
+                    b.HasOne("DatabaseTask.Core.Domain.Ruum", "Ruum")
+                        .WithMany("Koolitused")
+                        .HasForeignKey("RuumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("PRISON");
+                    b.Navigation("Koolitaja");
+
+                    b.Navigation("Registreerimine");
+
+                    b.Navigation("Ruum");
                 });
 
-            modelBuilder.Entity("DatabaseTask.Core.Domain.BUILDING", b =>
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Makse", b =>
                 {
-                    b.HasOne("DatabaseTask.Core.Domain.PRISON", "PRISON")
-                        .WithMany("Building")
-                        .HasForeignKey("PRISON_Id")
+                    b.HasOne("DatabaseTask.Core.Domain.Registreerimine", "Registreerimine")
+                        .WithMany("Maksed")
+                        .HasForeignKey("RegistreerimineId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("PRISON");
+                    b.Navigation("Registreerimine");
                 });
 
-            modelBuilder.Entity("DatabaseTask.Core.Domain.CHAMBER", b =>
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Õppija", b =>
                 {
-                    b.HasOne("DatabaseTask.Core.Domain.BLOCK", null)
-                        .WithMany("Chambers")
-                        .HasForeignKey("BLOCKid");
+                    b.HasOne("DatabaseTask.Core.Domain.Registreerimine", "Registreerimine")
+                        .WithOne("Õppija")
+                        .HasForeignKey("DatabaseTask.Core.Domain.Õppija", "RegistreerimineId");
 
-                    b.HasOne("DatabaseTask.Core.Domain.CHAMBER", null)
-                        .WithMany("Chambers")
-                        .HasForeignKey("CHAMBERid");
+                    b.Navigation("Registreerimine");
                 });
 
-            modelBuilder.Entity("DatabaseTask.Core.Domain.CRIME", b =>
+            modelBuilder.Entity("KoolitusÕppija", b =>
                 {
-                    b.HasOne("DatabaseTask.Core.Domain.PRISONERS", "PRISONERS")
+                    b.HasOne("DatabaseTask.Core.Domain.Koolitus", null)
                         .WithMany()
-                        .HasForeignKey("PRISONER_Id")
+                        .HasForeignKey("Koolitusedid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("PRISONERS");
-                });
-
-            modelBuilder.Entity("DatabaseTask.Core.Domain.GUARDS", b =>
-                {
-                    b.HasOne("DatabaseTask.Core.Domain.PRISON", "PRISON")
-                        .WithMany("Guards")
-                        .HasForeignKey("Prison_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PRISON");
-                });
-
-            modelBuilder.Entity("DatabaseTask.Core.Domain.PRISONERS", b =>
-                {
-                    b.HasOne("DatabaseTask.Core.Domain.CHAMBER", "CHAMBER")
-                        .WithMany("Prisoners")
-                        .HasForeignKey("CHAMBER_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DatabaseTask.Core.Domain.VISITORS", null)
-                        .WithMany("Prisoners")
-                        .HasForeignKey("VISITORSid");
-
-                    b.HasOne("DatabaseTask.Core.Domain.VISIT", "VISIT")
-                        .WithMany("Prisoners")
-                        .HasForeignKey("VISIT_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CHAMBER");
-
-                    b.Navigation("VISIT");
-                });
-
-            modelBuilder.Entity("DatabaseTask.Core.Domain.PUNISHMENT", b =>
-                {
-                    b.HasOne("DatabaseTask.Core.Domain.PRISONERS", "PRISONERS")
+                    b.HasOne("DatabaseTask.Core.Domain.Õppija", null)
                         .WithMany()
-                        .HasForeignKey("PRISONERS_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PRISONERS");
-                });
-
-            modelBuilder.Entity("DatabaseTask.Core.Domain.VISITORS", b =>
-                {
-                    b.HasOne("DatabaseTask.Core.Domain.VISIT", "VISIT")
-                        .WithMany("Visitors")
-                        .HasForeignKey("VISIT_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("VISIT");
-                });
-
-            modelBuilder.Entity("GUARDSSHIFT", b =>
-                {
-                    b.HasOne("DatabaseTask.Core.Domain.GUARDS", null)
-                        .WithMany()
-                        .HasForeignKey("GUARDS_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DatabaseTask.Core.Domain.SHIFT", null)
-                        .WithMany()
-                        .HasForeignKey("ShiftsId")
+                        .HasForeignKey("ÕppijadId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DatabaseTask.Core.Domain.BLOCK", b =>
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Koolitaja", b =>
                 {
-                    b.Navigation("Chambers");
+                    b.Navigation("Koolitus")
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("DatabaseTask.Core.Domain.CHAMBER", b =>
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Registreerimine", b =>
                 {
-                    b.Navigation("Chambers");
+                    b.Navigation("Koolitus")
+                        .IsRequired();
 
-                    b.Navigation("Prisoners");
+                    b.Navigation("Maksed");
+
+                    b.Navigation("Õppija")
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("DatabaseTask.Core.Domain.PRISON", b =>
+            modelBuilder.Entity("DatabaseTask.Core.Domain.Ruum", b =>
                 {
-                    b.Navigation("Blocks");
-
-                    b.Navigation("Building");
-
-                    b.Navigation("Guards");
-                });
-
-            modelBuilder.Entity("DatabaseTask.Core.Domain.VISIT", b =>
-                {
-                    b.Navigation("Prisoners");
-
-                    b.Navigation("Visitors");
-                });
-
-            modelBuilder.Entity("DatabaseTask.Core.Domain.VISITORS", b =>
-                {
-                    b.Navigation("Prisoners");
+                    b.Navigation("Koolitused");
                 });
 #pragma warning restore 612, 618
         }
